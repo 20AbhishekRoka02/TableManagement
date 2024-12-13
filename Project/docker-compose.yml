@@ -1,14 +1,14 @@
 services:
-  # web:
-  #   build: .
-  #   container_name: next_dev
-  #   command: npm run dev
-  #   ports:
-  #     - 3000:3000
-  #   volumes:
-  #     - ./frontend/tablemanager-ui:/tablemanager-ui
-  #   depends_on:
-  #     - app
+  web:
+    build: ./frontend
+    container_name: next_dev
+    command: npm run dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/frontend
+    depends_on:
+      - app
 
   app:
     build: .
@@ -17,7 +17,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - .:/code
+      - .:/backend
     depends_on:
       - db
   
@@ -31,13 +31,13 @@ services:
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: exampledb
 
-  adminer:
-    image: adminer
-    restart: always
-    depends_on:
-      - db
-    ports:
-      - 8080:8080
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - 8080:8080
       
   
 
